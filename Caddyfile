@@ -1,0 +1,16 @@
+{
+	admin off
+	auto_https off
+}
+
+http://:8080
+root * /app/www
+encode zstd gzip
+file_server
+handle_errors {
+	rewrite * /{http.error.status_code}.html
+}
+route {
+	header /static/* Cache-Control max-age=31536000
+	header * Cache-Control max-age=3600
+}
